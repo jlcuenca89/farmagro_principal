@@ -1,0 +1,611 @@
+@font-face {
+  font-family: 'Gotham-Black';
+  src: url('../fonts/Gotham-Black.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Gotham-Book';
+  src: url('../fonts/Gotham-Book.otf') format('opentype');
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.center-image {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-image img {
+  height: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.buttons-container {
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%) scale(1.25); /* Aumentar el tamaño en un 10% */
+  display: flex;
+  justify-content: space-between;
+  gap: 2%; /* Espacio entre los botones */
+  width: 70%;
+  padding: 0 5%;
+}
+
+.btn {
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.0);
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+}
+
+.btn:hover:before {
+  left: 100%;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover svg {
+  transform: scale(1.2);
+  color: #007bff;
+}
+
+.btn.active {
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
+}
+
+.btn.active svg {
+  color: white;
+}
+
+.effect-1 #background-video {
+  filter: sepia(0.5);
+}
+
+.effect-2 #background-video {
+  filter: hue-rotate(90deg);
+}
+
+.effect-3 #background-video {
+  filter: brightness(1.2) contrast(1.2);
+}
+
+.effect-4 #background-video {
+  filter: grayscale(0.7);
+}
+
+.effect-5 #background-video {
+  filter: blur(5px);
+}
+
+.effect-6 #background-video {
+  filter: invert(0.2);
+}
+
+.effect-7 #background-video {
+  filter: saturate(2);
+}
+
+.effect-8 #background-video {
+  filter: brightness(0.7) contrast(1.3);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: white;
+  max-width: 85%;
+  width: 85%;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: modal-in 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  transition: all 0.5s ease;
+}
+
+.modal-content.shrink {
+  width: 35%;
+  margin-right: auto;
+  margin-left: 5%;
+  animation: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-content.shrink .modal-text {
+  display: none;
+}
+
+.modal-content.shrink .modal-image {
+  flex: 1;
+  height: auto;
+}
+
+.modal-image {
+  flex: 0 0 39%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.modal-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.modal-liston {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 30%;
+}
+
+.modal-liston img {
+  width: 25%;
+  object-fit: cover;
+  margin-left: 2%;
+}
+
+.modal-infocontent {
+  overflow: hidden;
+  width: 100%;
+}
+
+.modal-infocontent img {
+  width: 90%;
+  object-fit: cover;
+}
+
+.modal-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: 
+  url('../imgs/fondo_cierre.png') no-repeat bottom, /* Imagen de fondo superpuesta */
+  url('../imgs/fondo_tecnologia.png'); /* Imagen de fondo existente */
+  background-size: contain, cover; /* Ajustar ambas imágenes para cubrir todo el fondo */
+  background-position: bottom, center; /* Centrar ambas imágenes */
+  padding: 5px; /* Añadir padding para que el contenido no toque los bordes */
+}
+
+#modal-title {
+  line-height: 1;
+  margin-bottom: 10px;
+  margin-left: 2%;
+  color: rgb(96 149 65);
+  font-size: 40px;
+  font-family: 'Gotham-Black', sans-serif; /* Cambiar la tipografía */
+}
+
+#modal-subtitle {
+  color: rgb(96 149 65);
+  font-weight: 500;
+  margin-left: 2%;
+  font-size: 15px;
+  margin-right: 80px;
+  text-align: center;
+  font-family: 'Gotham-Black', sans-serif; /* Cambiar la tipografía */
+}
+
+#modal-description {
+  line-height: 1.3;
+  color: #555;
+  font-size: 10px;
+  margin-bottom: 10px;
+  margin-right: 5%;
+  margin-left: 2%;
+  font-family: 'Gotham-Book', sans-serif; /* Cambiar la tipografía */
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.close-btn:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+.submenu {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.submenu-btn {
+  padding: 8px 15px;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submenu-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.submenu-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+#details-tab {
+  display: flex;
+}
+
+.image-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.image-button {
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.image-button:hover {
+  transform: scale(1.05);
+}
+
+.image-button img {
+  width: 60%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.0);
+}
+
+.image-button h5 {
+  margin-top: 2px;
+  color: #333;
+  font-size: 10px;
+  font-family: 'Gotham-Black', sans-serif; /* Cambiar la tipografía */
+}
+
+.second-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 50%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: right 0.5s ease;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.second-modal.active {
+  display: block;
+  opacity: 1;
+}
+
+.second-modal-header {
+  width: 12%;
+  height: 160px;
+  margin-left: 5%;
+  overflow: hidden;
+}
+
+.second-modal-header img {
+  width: 88%;
+  object-fit: cover;
+}
+
+.second-modal-content {
+  display: flex;
+  padding: 20px;
+  flex: 1;
+  overflow: auto;
+  gap: 20px;
+  background-image: url('../imgs/fondo_tecnologia.png'); /* Ruta a tu imagen de fondo */
+  background-size: cover; /* Ajustar la imagen para cubrir todo el fondo */
+  background-position: center; /* Centrar la imagen */
+  background-repeat: no-repeat; /* No repetir la imagen */
+  transition: opacity 0.3s ease;
+}
+
+.second-modal-image {
+  flex: 0 0 40%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.second-modal-image img {
+  width: 90%;
+  object-fit: cover;
+  margin-left: 10px;
+}
+
+.second-modal-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.second-modal-title {
+  color: rgb(239 82 35);
+  font-size: 25px;
+  font-family: 'Gotham-Black', sans-serif; /* Cambiar la tipografía */
+}
+
+.second-modal-subtitle {
+  color: #ffffff;
+  font-weight: 0;
+  margin: 0;
+  font-size: 1px;
+  font-family: 'Gotham-Book', sans-serif; /* Cambiar la tipografía */
+}
+
+.second-modal-body {
+  line-height: 1.2;
+  color: #000000;
+  font-size: 12px;
+  margin-left: 2%;
+  margin-right: 5%;
+  font-family: 'Gotham-Book', sans-serif; /* Cambiar la tipografía */
+}
+
+.second-modal-footer {
+  width: 100%;
+  margin-right: 10px; /* Espacio entre la imagen y el texto */
+  vertical-align: middle; /* Alinear verticalmente con el texto */
+}
+
+.second-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 35px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  z-index: 5;
+  color: green;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.second-close-btn:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .center-image {
+    width: 90%;
+  }
+  
+  .buttons-container {
+    bottom: 20%;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 5%;
+  }
+  
+  .btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  .btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .modal-content {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .modal-content.shrink {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  .modal-content.shrink .modal-image {
+    flex: 1;
+    margin-bottom: 0;
+    height: auto;
+  }
+  
+  #details-tab {
+    flex-direction: column;
+  }
+  
+  .modal-image {
+    flex: 0 0 200px;
+    margin-bottom: 20px;
+  }
+  
+  .image-buttons {
+    flex-wrap: wrap;
+  }
+  
+  .image-button {
+    flex: 0 0 calc(50% - 8px);
+    margin-bottom: 15px;
+  }
+  
+  .image-button img {
+    height: 100px;
+  }
+  
+  .second-modal {
+    top: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+  }
+  
+  .second-modal-content {
+    flex-direction: column;
+  }
+  
+  .second-modal-image {
+    height: 200px;
+  }
+
+.image-buttons .image-button:nth-child(1) { transition-delay: 0.1s; }
+.image-buttons .image-button:nth-child(2) { transition-delay: 0.2s; }
+.image-buttons .image-button:nth-child(3) { transition-delay: 0.3s; }
+.image-buttons .image-button:nth-child(4) { transition-delay: 0.4s; }
+.image-buttons .image-button:nth-child(5) { transition-delay: 0.5s; }
+
+.modal-image img,
+.second-modal-image img {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.modal.active .modal-image img,
+.second-modal.active .second-modal-image img {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-text,
+.second-modal-text {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.modal.active .modal-text,
+.second-modal.active .second-modal-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.close-btn,
+.second-close-btn {
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.close-btn:hover,
+.second-close-btn:hover {
+  opacity: 1;
+}
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmagro - Showroom 2025</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="imgs/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <video id="background-video" autoplay loop muted>
+      <source src="video/videofondo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="center-image">
+      <img src="imgs/logofarmagro.svg" width="25%" height="25%" alt="logofarmagro">
+    </div>
+    <div class="buttons-container">
+      <button class="btn" title="iconoveterinaria">
+        <img src="imgs/iconoveterinaria.svg" width="100%" alt="Veterinaria">
+      </button>
+      <button class="btn" title="iconoacuicola">
+        <img src="imgs/iconoacuicola.svg" width="100%" alt="Acuicola">
+      </button>
+      <button class="btn" title="iconomascota">
+        <img src="imgs/iconomascota.svg" width="100%" alt="Mascota">
+      </button>
+      <button class="btn" title="iconoagricola">
+        <img src="imgs/iconoagricola.svg" width="100%" alt="Agricola">
+      </button>
+      <button class="btn" title="iconoornamental">
+        <img src="imgs/iconoornamental.svg" width="100%" alt="Ornamental">
+      </button>
+      <button class="btn" title="iconosaludpublica">
+        <img src="imgs/iconosalud.svg" width="100%" alt="Salud Pública">
+      </button>
+      <button class="btn" title="iconomaquinaria">
+        <img src="imgs/iconomaquinaria.svg" width="100%" alt="Maquinaria">
+      </button>
+    </div>
+    <div class="modal" id="description-modal">
+      <div class="modal-content">
+        <button class="close-btn">&times;</button>
+        <div class="tab-content" id="details-tab">
+          <div class="modal-image">
+            <img id="modal-image" src="" alt="Feature illustration">
+          </div>
+          <div class="modal-text">
+            <div class="modal-liston">
+              <img id="modal-liston" src="" alt="Liston">
+            </div>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <h4 id="modal-subtitle"></h4>
+            <div id="modal-body"></div>
+            <div class="image-buttons">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="second-modal" id="second-modal">
+        <button class="second-close-btn">&times;</button>
+        <div class="second-modal-header">
+          <img id="second-header-image" src="" alt="Header image">
+        </div>
+        <div class="second-modal-content">
+          <div class="second-modal-image">
+            <img id="second-content-image" src="" alt="Content image">
+          </div>
+          <div class="second-modal-text">
+            <h2 id="second-modal-title" class="second-modal-title"></h2>
+            <h4 id="second-modal-subtitle" class="second-modal-subtitle"></h4>
+            <div id="second-modal-body" class="second-modal-body"></div>
+            <div class="modal-infocontent">
+              <img id="modal-infocontent" src="" alt="Content image">
+            </div>
+          </div>
+        </div>
+        <div class="second-modal-footer">
+          <img src="imgs/fondo_cierre.png" alt="Footer image" style="width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
